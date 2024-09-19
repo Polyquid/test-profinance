@@ -1,11 +1,16 @@
-function App() {
+import Aside from "./components/Aside";
+import Main from "./components/Main";
+import DataProvider from "./contexts/DataProvider";
+
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
+    <DataProvider>
+      <div className="flex flex-row my-4">
+        <Aside />
+        <Main />
+      </div>
+    </DataProvider>
   );
-}
+};
 
 export default App;

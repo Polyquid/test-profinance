@@ -29,6 +29,7 @@ export default tseslint.config(
       '@stylistic/ts/indent': ["error", 2],
       '@stylistic/ts/space-before-function-paren': ['error', 'never'],
       '@stylistic/ts/quotes': ["error", "single"],
+      '@stylistic/js/object-curly-spacing': ["error", "always"]
     },
   },
 )

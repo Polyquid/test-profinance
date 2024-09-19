@@ -33,7 +33,7 @@ const AsideNav = () => {
       <Accordion type="single" collapsible className="w-72 flex flex-col gap-1 pb-4">
         {navData.map(({ id, title, Icon, content }) => {
           return (
-            <AccordionItem value={`item-${id}`} className='bg-secondary-foreground rounded-xl'>
+            <AccordionItem key={id} value={`item-${id}`} className='bg-secondary-foreground rounded-xl'>
               <AccordionTrigger className='px-4'>
                 <div className="flex items-center gap-3">
                   <Icon size={20} />
