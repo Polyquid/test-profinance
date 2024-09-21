@@ -1,15 +1,16 @@
 import Aside from "./components/Aside";
 import Main from "./components/Main";
-import DataProvider from "./contexts/DataProvider";
+import { Provider } from 'react-redux';
+import store from "./store";
 
 const App = () => {
   return (
-    <DataProvider>
+    <Provider store={store}>
       <div className="flex flex-row my-4">
         <Aside />
         <Main />
       </div>
-    </DataProvider>
+    </Provider>
   );
 };
 

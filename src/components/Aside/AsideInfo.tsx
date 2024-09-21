@@ -32,10 +32,10 @@ const AsideInfo = () => {
         <p className="text-sm">c 9:00 до 19:00 мск</p>
       </div>
       {linksData.map(({ title, href, id }, index) => (
-        <>
-          <a key={id} href={href} className="text-muted text-sm">{title}</a>
+        <div key={id}>
+          <a href={href} className="text-muted text-sm">{title}</a>
           {index !== linksData.length - 1 ? <Separator className="my-2 bg-muted" /> : null}
-        </>
+        </div>
       ))}
     </div>
   )
