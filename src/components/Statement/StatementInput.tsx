@@ -10,14 +10,29 @@ type StatementInputType = {
   editable: Editable
 }
 
+const numberFields = ['id', 'barcode', 'product_quantity', 'price'];
+const numbers = '1234567890'.split('');
+const isNumber = (value: string): boolean => {
+  const valueChar = value.split('');
+  return valueChar.every((char: string) => numbers.includes(char));
+};
+
 const StatementInput = ({ setEditable, editable }: StatementInputType) => {
   const [value, setValue] = useState(editable.cell.value);
   const dispath = useDispatch();
   const handleSetValueClick = () => {
     const { cell: { id, property }} = editable
-    
-    dispath(editCurrentUIlist({ id, property, value }))
-    setEditable({ ...editable, state: false})
+    if (numberFields.includes(property || '') ) {
+      if (isNumber(value || '')) {
+        dispath(editCurrentUIlist({ id, property, value }));
+        setEditable({ ...editable, state: false});
+      } else {
+        alert('Только числа');
+      }
+    } else {
+      dispath(editCurrentUIlist({ id, property, value }));
+      setEditable({ ...editable, state: false});
+    }
   }
   const handleClearClick = () => {
     setEditable({ ...editable, state: false})
