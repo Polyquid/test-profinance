@@ -1,18 +1,26 @@
-import { Separator } from "../ui/separator";
+import { Separator } from '../ui/separator';
 
 type linkItem = {
-  id: number,
-  title: string,
-  href: string,
+  'id': number;
+  'title': string;
+  'href': string;
 };
 
 const AsideInfo = () => {
   const linksData: linkItem[] = [
-    { id: 1, title: 'Пользовательское соглашение', href: '#'},
-    { id: 2, title: 'Политика конфиденциальности', href: '#'},
-    { id: 3, title: 'Юридическая информация', href: '#'},
-    { id: 4, title: 'Публичная оферта', href: '#'},
-  ]
+    { 'id': 1,
+      'title': 'Пользовательское соглашение',
+      'href': '#' },
+    { 'id': 2,
+      'title': 'Политика конфиденциальности',
+      'href': '#' },
+    { 'id': 3,
+      'title': 'Юридическая информация',
+      'href': '#' },
+    { 'id': 4,
+      'title': 'Публичная оферта',
+      'href': '#' }
+  ];
   return (
     <div className="w-80 px-6 py-6 flex flex-col justify-center items-start rounded-3xl bg-secondary text-white">
       <h2 className="text-sm mb-8">Техническая поддержка</h2>
@@ -31,14 +39,14 @@ const AsideInfo = () => {
         <p className="text-sm">Пн - Пт</p>
         <p className="text-sm">c 9:00 до 19:00 мск</p>
       </div>
-      {linksData.map(({ title, href, id }, index) => (
+      {linksData.map(({ title, href, id }, index) => 
         <div key={id}>
           <a href={href} className="text-muted text-sm">{title}</a>
           {index !== linksData.length - 1 ? <Separator className="my-2 bg-muted" /> : null}
         </div>
-      ))}
+      )}
     </div>
-  )
+  );
 };
 
 export default AsideInfo;

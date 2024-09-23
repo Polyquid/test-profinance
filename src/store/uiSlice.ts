@@ -2,48 +2,56 @@ import { createSlice } from '@reduxjs/toolkit';
 import { dataItem } from './types';
 
 type initialStateType = {
-  list: dataItem[] | [],
-  prevList: dataItem[] | [],
-  initList: dataItem[] | [],
-}
+  'list': dataItem[] | [];
+  'prevList': dataItem[] | [];
+  'initList': dataItem[] | [];
+};
 
 const initialState: initialStateType = {
-  list: [],
-  prevList: [],
-  initList: [],
+  'list': [],
+  'prevList': [],
+  'initList': []
 };
 
 const uiSlice = createSlice({
-  name: 'ui',
+  'name': 'ui',
   initialState,
-  reducers: {
-    setCurrentUIlist: ( state, { payload: list }) => {
-      return { ...state, initList: list, list };
+  'reducers': {
+    'setCurrentUIlist': ( state, { 'payload': list }) => {
+      return { ...state,
+        'initList': list,
+        list };
     },
-    editCurrentUIlist: (state, { payload: { id, property, value } }) => {
+    'editCurrentUIlist': (state, { 'payload': { id, property, value } }) => {
       const newList = state.list.map((item) => {
         if (item.id == id) {
-          const newItem = { ...item, [property]: value };
+          const newItem = { ...item,
+            [property]: value };
           return newItem;
         }
         return item;
-      })
+      });
       const newInitList = state.initList.map((item) => {
         if (item.id == id) {
-          const newItem = { ...item, [property]: value };
+          const newItem = { ...item,
+            [property]: value };
           return newItem;
         }
         return item;
-      })
-      return { ...state, list: newList, initList: newInitList }
+      });
+      return { ...state,
+        'list': newList,
+        'initList': newInitList };
     },
-    resetUIlist: (state) => {
-      return {...state, list: state.initList }
+    'resetUIlist': (state) => {
+      return { ...state,
+        'list': state.initList };
     },
-    updateUIList: ( state, { payload: list }) => {
-      return { ...state, list };
-    },
-  },
+    'updateUIList': ( state, { 'payload': list }) => {
+      return { ...state,
+        list };
+    }
+  }
 });
 
 export const {

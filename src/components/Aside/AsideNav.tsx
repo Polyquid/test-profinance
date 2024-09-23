@@ -3,18 +3,30 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
 
 type navDataItem = {
-  id: number,
-  title: string;
-  Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
-  content: string;
-}
+  'id': number;
+  'title': string;
+  'Icon': ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
+  'content': string;
+};
 
 const AsideNav = () => {
   const navData: Array<navDataItem> = [
-    { id: 1, title: 'Настройки', Icon: Settings, content: 'Lorem Ipsum' },
-    { id: 2, title: 'Внесение данных', Icon: FilePenLine, content: 'Lorem Ipsum' },
-    { id: 3, title: 'Отчеты', Icon: ChartGantt, content: 'Lorem Ipsum' },
-    { id: 4, title: 'База знаний', Icon: BookText, content: 'Lorem Ipsum' },
+    { 'id': 1,
+      'title': 'Настройки',
+      'Icon': Settings,
+      'content': 'Lorem Ipsum' },
+    { 'id': 2,
+      'title': 'Внесение данных',
+      'Icon': FilePenLine,
+      'content': 'Lorem Ipsum' },
+    { 'id': 3,
+      'title': 'Отчеты',
+      'Icon': ChartGantt,
+      'content': 'Lorem Ipsum' },
+    { 'id': 4,
+      'title': 'База знаний',
+      'Icon': BookText,
+      'content': 'Lorem Ipsum' }
   ];
   return (
     <div className="w-80 flex flex-col justify-center items-center rounded-3xl bg-secondary text-white">

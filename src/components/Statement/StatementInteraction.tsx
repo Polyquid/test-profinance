@@ -1,20 +1,20 @@
-import { useDispatch } from "react-redux";
-import { Separator } from "@/components/ui/separator";
-import { FolderInput, FolderUp, X } from "lucide-react";
-import rawData from '@/assets/DATA.json'
-import { setCurrentData } from "@/store/listDataSlice";
-import { setCurrentUIlist } from "@/store/uiSlice";
+import { useDispatch } from 'react-redux';
+import { Separator } from '@/components/ui/separator';
+import { FolderInput, FolderUp, X } from 'lucide-react';
+import rawData from '@/assets/DATA.json';
+import { setCurrentData } from '@/store/listDataSlice';
+import { setCurrentUIlist } from '@/store/uiSlice';
 
 const StatementInteraction = () => {
   const dispatch = useDispatch();
   const handleSetDataClick = () => {
-    dispatch(setCurrentData(rawData))
-    dispatch(setCurrentUIlist(rawData))
-  }
+    dispatch(setCurrentData(rawData));
+    dispatch(setCurrentUIlist(rawData));
+  };
   const handleClearDataClick = () => {
-    dispatch(setCurrentData([]))
-    dispatch(setCurrentUIlist([]))
-  }
+    dispatch(setCurrentData([]));
+    dispatch(setCurrentUIlist([]));
+  };
   return (
     <div className="mt-7">
       <Separator />
@@ -35,7 +35,7 @@ const StatementInteraction = () => {
       </div>
       <Separator />
     </div>
-  )
+  );
 };
 
 export default StatementInteraction;

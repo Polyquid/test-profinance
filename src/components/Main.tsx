@@ -1,5 +1,5 @@
-import Header from "./Header";
-import Statement from "./Statement";
+import Header from './Header';
+import Statement from './Statement';
 
 const Main = () => {
   return (

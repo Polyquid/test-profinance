@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { data: [] };
+const initialState = { 'data': [] };
 
 const listData = createSlice({
-  name: 'listData',
+  'name': 'listData',
   initialState,
-  reducers: {
-    setCurrentData: ( _, { payload: data }) => ({ data }),
-  },
+  'reducers': {
+    'setCurrentData': ( _, { 'payload': data }) => ({ data })
+  }
 });
 
 export const {
