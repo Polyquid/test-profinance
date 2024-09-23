@@ -1,10 +1,11 @@
+import { RootState } from "@/store";
 import StatementFilter from "./StatementFilter";
 import StatementInteraction from "./StatementInteraction";
 import StatementTable from "./StatementTable";
 import { useSelector } from "react-redux";
 
 const Statement = () => {
-  const data = useSelector((state) => state.listData.data)
+  const data = useSelector((state: RootState) => state.listData.data)
   const filters = data.length > 0 ? Object.keys(data[0]) : [];
   const filtersPlaceholder = data[0] ?? {};
   return (

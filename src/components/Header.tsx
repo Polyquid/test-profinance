@@ -1,8 +1,9 @@
+import { RootState } from "@/store";
 import { BookText, CalendarDays, CircleUserRound } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  const data = useSelector((state) => state.ui.list);
+  const data = useSelector((state: RootState) => state.ui.list);
   const currentDate = new Date(Date.now());
   return (
     <>

@@ -8,15 +8,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Input } from "../ui/input";
-import { useEffect, useMemo, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUIlist } from "@/store/uiSlice";
+import StatementInput from "./StatementInput";
+import { RootState } from "@/store";
 
 type StatementProps = {
   headers: string[];
+}
+
+export type Editable = {
+  cell: {
+    id?: string,
+    property?: string,
+    value?: string,
+  },
+  state: boolean
 }
 
 const filtersMap: { [key: string]: string } = {
@@ -27,12 +37,21 @@ const filtersMap: { [key: string]: string } = {
   product_quantity: 'Количество',
   price: 'Цена',
 }
+const initEditableState: Editable = {
+  cell: {
+    id: '',
+    property: '',
+    value: ''
+  },
+  state: false
+}
 
 const StatementTable = ({ headers }: StatementProps) => {
-  const data = useSelector((state) => state.ui.list)
+  const data = useSelector((state: RootState) => state.ui.list)
   const dispatch = useDispatch();
   const [typeSort, setTypeSort] = useState({ asc: false, property: '' });
-  const [editable, setEditable] = useState({ cell: { id: 0, property: '' }, state: false })
+  const [editable, setEditable] = useState(initEditableState)
+
   const renderCell = (item: dataItem) => {
     const data = Object.entries(item);
     return data.map(([key, value], index) => {
@@ -40,13 +59,9 @@ const StatementTable = ({ headers }: StatementProps) => {
         'rounded-l-xl': index === 0,
         'rounded-r-xl': index === data.length - 1,
       });
-      const isEditable = editable.state && editable.cell.id == item.id && editable.cell.property === key;
+      const isEditable = editable.state && editable.cell.id === item.id?.toString() && editable.cell.property === key;
       return isEditable ? (
-        <td className="flex items-center p-4">
-          <Input className="p-0 h-5" autoFocus />
-          <button onClick={() => setEditable({ ...editable, state: false})}>+</button>
-          <button onClick={() => setEditable({ ...editable, state: false})}>-</button>
-        </td>
+        <StatementInput setEditable={setEditable} editable={editable} />
       ) :
         <TableCell
           className={currCN}
@@ -80,19 +95,23 @@ const StatementTable = ({ headers }: StatementProps) => {
       property: name,
     });
   };
-  const totalSum = data?.reduce((acc: number, item: dataItem) => {
-    const { price } = item;
-    if (typeof price === 'number') {
-      return acc += price;
+  const { totalSum, totalCount } = data?.reduce((acc: { [key: string]: number }, item: dataItem) => {
+    const { price, product_quantity } = item;
+    if (typeof price === 'number' && typeof product_quantity === 'number') {
+      acc.totalSum += price;
+      acc.totalCount += product_quantity;
+      return acc
     };
     return acc;
-  }, 0)
-  const handleDoubleClick = (e: Event) => {
-    if (e.target instanceof HTMLElement) {
-      const row = e?.target?.closest('[data-id]');
-      const { id } = row?.dataset;
-      const { property } = e?.target?.dataset;
-      setEditable({ cell: { id, property }, state: true })
+  }, { totalSum: 0, totalCount: 0 })
+
+  const handleDoubleClick: MouseEventHandler<HTMLTableSectionElement> = (e) => {
+    if (e.target instanceof HTMLElement && !editable.state) {
+      const row = e.target.closest('[data-id]') as HTMLElement;
+      const value = e.target.textContent ?? '';
+      const { id } = row.dataset;
+      const { property } = e.target.dataset;
+      setEditable({ cell: { id, property, value }, state: true })
     }
   }
   return data.length === 0 ?
@@ -112,7 +131,7 @@ const StatementTable = ({ headers }: StatementProps) => {
           </TableRow>
         </TableHeader>
         <TableBody onDoubleClick={handleDoubleClick}>
-          {data.map((item, index) => {
+          {data.map((item: dataItem, index: number) => {
             const cells = renderCell(item);
             return (
               <TableRow key={item.id} data-id={item.id} className={cn(index % 2 === 0 ? 'bg-background' : 'bg-slate-50')}>
@@ -123,7 +142,8 @@ const StatementTable = ({ headers }: StatementProps) => {
         </TableBody>
         <TableFooter>
           <TableRow className="text-primary bg-primary-foreground">
-            <TableCell colSpan={headers.length - 1}>Итого</TableCell>
+            <TableCell colSpan={headers.length - 2}>Итого</TableCell>
+            <TableCell>{totalCount}</TableCell>
             <TableCell>{totalSum}</TableCell>
           </TableRow>
         </TableFooter>
