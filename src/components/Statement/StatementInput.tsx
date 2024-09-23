@@ -57,7 +57,7 @@ const StatementInput = ({ setEditable, editable }: StatementInputType) => {
             handleClearClick();
           }
         }}
-        className="p-0 h-5 bg-blue-400"
+        className="px-1 h-5 bg-blue-100 border border-blue-500"
         autoFocus
       />
       <Check onClick={handleSetValueClick} className="absolute -bottom-3 left-10 mx-1 text-white bg-primary rounded-full cursor-pointer"/>
